@@ -11,7 +11,7 @@
 <form action="{% url "verify_captcha" %}" method="POST">
     {% csrf_token %}
     {% include "decaptcha.html" %}
-    <button type="submit">Отправить</button>
+    <button type="submit">Отправить данные формы</button>
 </form>
 </body>
 </html>

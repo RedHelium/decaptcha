@@ -1,16 +1,13 @@
 (function($) {
     $(document).ready(function(){
 
-        var de_question = $("#decaptcha-question").text("");
-        var de_response = $("#decaptcha-response").text(" \n ");
+        var de_question = $("#decaptcha-question");
+        var de_response = $("#decaptcha-response");
         var de_result = $('input[name="decaptcha-result"]:hidden');
 
         var de_current_question;
         
         $.getJSON("./media/questions.json", function (data) {
-
-            for (let index = 0; index < data.questions.length; index++) {                
-            }
 
             questionIndex = getRandomInt(data.questions.length);              
             de_current_question = data.questions[questionIndex];          
@@ -22,21 +19,26 @@
 
         $("#decaptcha-submit").on("click", function() {
 
-            var userAnswer = $.md5($("#decaptcha-answer").val().toLowerCase());
+            var de_answer = $("#decaptcha-answer");
+            var userAnswer = $.md5(de_answer.val().toLowerCase());
 
-            if(userAnswer == de_current_question["answer"].toLowerCase())
-            {
-                de_response.text("Ответ правильный");
-                de_response.addClass("decaptcha-response-success");
-                de_result.val("1");
+                if(de_result.val() != 1)
+                {
+                    if(userAnswer == de_current_question["answer"].toLowerCase())
+                    {
+                        de_response.text("OK");
+                        de_response.addClass("decaptcha-response-success");
+                        de_result.val("1");
+                        de_answer.prop('readonly', true);
 
-            }
-            else
-            {
-                de_response.text("Ответ неправильный!");
-                de_response.addClass("decaptcha-response-error");
-                de_result.val("0");
-            }
+                    }
+                    else
+                    {
+                        de_response.text("FAIL");
+                        de_response.addClass("decaptcha-response-error");
+                        de_result.val("0");
+                    }
+                }
         });
     
         
