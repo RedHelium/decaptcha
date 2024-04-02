@@ -1,0 +1,17 @@
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" href="{% static "css/decaptcha.css" %}?v=1" />
+    <script type="text/javascript" src="{% static "js/jquery-3.3.1.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/jquery.md5.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/decaptcha.js" %}?v=1"></script>
+</head>
+
+<body>
+<form action="{% url "verify_captcha" %}" method="POST">
+    {% csrf_token %}
+    {% include "decaptcha.html" %}
+    <button type="submit">Отправить</button>
+</form>
+</body>
+</html>
